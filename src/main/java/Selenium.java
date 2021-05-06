@@ -7,7 +7,7 @@ public class Selenium {
     public static WebDriver driver;
 
     public static void setup(){
-        System.setProperty("webdriver.chrome.driver", "webdriver/chromedriver_linux64");
+        System.setProperty("webdriver.chrome.driver", "webdriver/chromedriver_win32.exe");
         driver = new ChromeDriver();
         driver.get("http://kitm.epizy.com/filmai.php?i=1");
     }
@@ -43,5 +43,43 @@ public class Selenium {
         if (fail) fail();
         else success();
         button(button);
+    }
+
+    public static boolean check(String expected){
+        try {
+            driver.findElement(By.className("msg-"+expected));
+            return true;
+        }
+        catch (Exception e){
+            return false;
+        }
+    }
+
+    public static boolean checkResults(Boolean expected_result){
+        if (!expected_result){
+            if (Selenium.check("good")){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+        else{
+            if (Selenium.check("bad")){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+    }
+
+    public static void printResults(String name, Boolean expected){
+        if (Selenium.checkResults(expected)){
+            System.out.println(name+" GOOD");
+        }
+        else{
+            System.out.println(name+" BAD");
+        }
     }
 }
