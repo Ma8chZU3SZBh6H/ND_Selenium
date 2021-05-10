@@ -2,6 +2,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 
 public class Driver {
     public static WebDriver driver;
@@ -9,7 +10,9 @@ public class Driver {
 
     public static void driverStart(){
         System.setProperty("webdriver.chrome.driver", "webdriver/chromedriver_linux64");
-        driver = new ChromeDriver();
+        ChromeOptions co = new ChromeOptions();
+        co.setHeadless(true);
+        driver = new ChromeDriver(co);
         driver.get("http://kitm.epizy.com/filmai.php?i=1");
     }
 
